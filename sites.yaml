@@ -1,0 +1,28 @@
+---
+
+- hosts: webservers
+  become: true
+  pre_tasks:
+    - name: install updates for ubuntu
+      tags: always
+      apt:
+        upgrade: dist
+        update_cache: yes
+        state: latest
+      when: ansible_distribution == "ubuntu"
+
+    - name: install database-server
+      tags: ubuntu,database,mariadb-server
+      apt: 
+        name: 
+          - mariadb-server
+          - samba
+        state: latest
+      #when: ansible_distribution == "ubuntu"
+ 
+
+
+
+
+
+
